@@ -31,3 +31,49 @@ body {
     text-wrap: balance;
   }
 }
+
+/* START: General styles */
+.max-width {
+  @apply max-w-[1440px] mx-auto;
+}
+
+.padding-x {
+  @apply sm:px-16 px-6;
+}
+
+.padding-y {
+  @apply py-4;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.custom-btn {
+  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
+}
+/* END: General styles */
+
+.search-page {
+  @apply flex items-center justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl;
+}
+
+.search-bar-container{
+  @apply flex-1 max-sm:w-full flex justify-start items-center relative;
+}
+
+.search-bar{
+  @apply w-full h-[48px] pl-12 p-4 rounded-full max-sm:rounded-full bg-slate-900 outline outline-sky-300 cursor-pointer text-[1rem];
+}
+
+.search-card{
+  @apply relative py-2 border-solid border-b border-slate-400;
+}
+
+.text-film-name{
+  @apply underline font-bold decoration-solid;
+}
