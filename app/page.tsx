@@ -2,7 +2,7 @@ import { SearchBar } from "@/components"
 import {v2 as cloudinary} from "cloudinary"
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 
-//cloundinary configuration
+// cloundinary configuration
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
   api_key: process.env.CLOUDINARY_API_KEY, 
@@ -19,13 +19,20 @@ const getFilm = async () => {
   }
   catch (error){
     console.log(error);
+    return "error"
   }
 }
 
 
 export default async function Home() {
   //fetch necessary resources
-  const resources = await cloudinary.search.expression('episode').execute();
+  let resources;
+  try {
+    resources = await cloudinary.search.expression('episode').execute();
+  } catch (error) {
+    resources = {resources: []};
+  }
+  
   const films = await getFilm();
   
   return (

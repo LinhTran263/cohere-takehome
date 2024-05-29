@@ -111,8 +111,9 @@ const SearchFilm = ({film, setFilm, films, resources}: SearchFilmProps) => {
                               episode_id={item.episode_id}
                               selected={selected}
                               focus={focus}
-                              image={resources.resources.filter((resource)=>(
-                                resource.public_id.toLowerCase().replace(/\s+/g, "").includes(String(item.episode_id).toLowerCase().replace(/\s+/g, ""))))}
+                              image={resources.resources.length > 0 ? (resources.resources.filter((resource)=>(
+                                resource.public_id.toLowerCase().replace(/\s+/g, "").includes(String(item.episode_id).toLowerCase().replace(/\s+/g, ""))))):
+                                []}
                             />
 
                           )}

@@ -7,6 +7,7 @@ import SearchFilm from "./SearchFilm";
 import { useState } from "react";
 import { SearchBarProps } from "@/types";
 import { CldImage } from "next-cloudinary";
+import { formatDate } from "./FilmCard";
 
 const SearchBar = ({films, resources}: SearchBarProps) => {
     const [film, setFilm] = useState('');
@@ -15,7 +16,7 @@ const SearchBar = ({films, resources}: SearchBarProps) => {
     const choosenFilm = (film !== "" && film !== null) ? films.results.filter((item)=>(
             item.title.toLowerCase().includes(film.toLowerCase()))) : [];
     //extrcat the poster image of the film after searching
-    const choosenPoster = (choosenFilm.length > 0) ? resources.resources.filter((resource)=>(
+    const choosenPoster = (choosenFilm.length > 0 && resources.resources.length > 0) ? resources.resources.filter((resource)=>(
             resource.public_id.toLowerCase().replace(/\s+/g, "").includes(String(choosenFilm[0].episode_id).toLowerCase().replace(/\s+/g, "")))) 
             : [{
                 url: "/placeholder.jpeg",
@@ -58,7 +59,7 @@ const SearchBar = ({films, resources}: SearchBarProps) => {
                     />
                 )}
                 <p className="text-white">Director: {choosenFilm[0].director}</p>
-                <p className="text-white">Release Date: {choosenFilm[0].release_date}</p>
+                <p className="text-white">Release Date: {formatDate(choosenFilm[0].release_date)}</p>
             </div>
         ) : null }
     </div>

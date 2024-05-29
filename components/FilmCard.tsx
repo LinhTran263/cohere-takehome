@@ -4,7 +4,7 @@ import { FilmCardProps } from '@/types'
 import { CldImage } from 'next-cloudinary'
 
 //function to format the date data
-function formatDate(dateString: string) {
+export function formatDate(dateString: string) {
   // Create a Date object from the input string
   const date = new Date(dateString);
 
@@ -27,7 +27,7 @@ function formatDate(dateString: string) {
 const FilmCard = ({title, director, release_date, episode_id, selected, focus, image}: FilmCardProps) => {
 
   return (
-    <div className='grid grid-cols-3 gap-4 justify-items-start items-center gap-4 p-5'>
+    <div className='film-card'>
         {/* display placeholder if no image found, else display the according image */}
         {image.length > 0 ? (
                   <CldImage 
