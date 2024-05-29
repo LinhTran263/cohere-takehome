@@ -5,6 +5,22 @@ import React, { useState, Fragment } from 'react'
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions, Transition } from '@headlessui/react'
 import FilmCard from './FilmCard'
 
+
+const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+function searchMonths(query: string): number[] {
+  const lowerCaseQuery = query.toLowerCase();
+  return months
+    .map((month, index) => ({ month, num: index + 1 }))
+    .filter(({ month }) => month.toLowerCase().includes(lowerCaseQuery))
+    .map(({ num }) => num);
+}
+
+
+
 const SearchFilm = ({film, setFilm, films, resources}: SearchFilmProps) => {
 
   const [query, setQuery] = useState("");
@@ -29,9 +45,17 @@ const SearchFilm = ({film, setFilm, films, resources}: SearchFilmProps) => {
             item.producer.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, ""))
         ));
           if (results.length === 0) {
-            results = films.results.filter((item)=>(
-              item.release_date.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, ""))
-          ));
+            if (!isNaN(+query)) {
+              results = films.results.filter((item)=>(
+                item.release_date.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, ""))
+            ));  
+            }else{
+              const monthList = searchMonths(query);
+              results = films.results.filter((item)=>(
+                item.release_date.toLowerCase().replace(/\s+/g, "").includes(String(monthList[0]).toLowerCase().replace(/\s+/g, ""))
+            ));  
+
+            }
           }
         }
       }
